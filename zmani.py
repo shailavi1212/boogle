@@ -1,5 +1,4 @@
 from tkinter import *
-
 root = Tk()
 root.geometry('1352x652+0+0')
 root.configure(background = 'black')
@@ -7,14 +6,35 @@ words_list = list()
 board_dict = {(0, 0): 'A', (0, 1): 'A', (0, 2): 'A', (0, 3): 'O', (1, 0): 'M', (1, 1): 'L', (1, 2): 'D', (1, 3): 'I', (2, 0): 'G', (2, 1): 'L', (2, 2): 'S', (2, 3): 'T', (3, 0): 'E', (3, 1): 'T', (3, 2): 'E', (3, 3): 'M'}
 background = Frame(root,bg = 'black')
 background.grid()
-empty_frame = board_frame = Frame(root,bd = 20,bg = 'red',width = 100,height= 600 )
+empty_frame = board_frame = Frame(root,bg = 'red',width = 300,height= 600 )
 board_frame.grid(row = 0, column = 0)
 board_frame = Frame(root,bd = 20,bg = 'yellow',width = 440,height= 600 )
 board_frame.grid(row = 0, column = 1)
-timer_frame = Frame(root,bd = 20,bg = 'blue' ,width = 440,height= 600 )
-timer_frame.grid(row = 0, column = 2)
+empty_frame2 = Frame(root,bd = 20,bg = 'orange',width = 100,height= 100 )
+board_frame.grid(row = 0, column = 2)
+table_frame = Frame(root,bd = 100,bg = 'blue' ,width = 100,height= 600 )
+table_frame.grid(row = 0, column = 3)
 ############################################################### board frame ##############################################################################################
-submit_frame = Frame(board_frame,bg = 'grey',bd = 20,width = 100,height= 100 )
-submit_frame.grid(row = 1, column = 0)
-letter_frame = Frame(board_frame,bg = 'green',bd = 20,width = 440,height= 200)
-letter_frame.grid(row = 0, column = 0)
+timer_frame = Frame(board_frame,bg = 'pink',bd = 20,width = 100,height= 100 )
+timer_frame.grid(row = 0, column = 0)
+letters_frame = Frame(board_frame,bg = 'green',bd = 20,width = 440,height= 400)
+letters_frame.grid(row = 1, column = 0)
+empty_space = Frame(board_frame,bg = 'black',bd = 20,width = 440,height= 30)
+empty_space.grid(row = 2, column = 0)
+submit_frame = Frame(board_frame,bg = 'grey',bd = 20,width = 90,height= 50 )
+submit_frame.grid(row = 3, column = 0)
+################################################ empty_side  ##########################################################################
+empty_space1 = Frame(empty_frame,bg = 'black',bd = 20,width = 390,height= 600)
+empty_space1.grid(row = 0,column = 0)
+end_game_menu = Frame(empty_frame,bg = 'grey',bd = 20,width = 100,height= 100)
+end_game_menu.grid(row = 1, column = 0,sticky = W)
+################################################# words_table #################################################################
+table = Scrollbar(table_frame)
+table.pack(side = RIGHT,fill = Y)
+list_of_words = Listbox(table_frame, yscrollcommand = table.set,bg = 'grey',bd = 20,width = 20,height= 20,font = 'helvetica 15')
+for i in range (100):
+    list_of_words.insert(END,'' + str(i+1))
+list_of_words.pack(side = LEFT)
+table.config(command = list_of_words.yview,)
+#################################################################### END ####################################################3
+root.mainloop()
