@@ -62,8 +62,8 @@ def add_letter(coor_list):
 
 background = Frame(root,bg = 'black')
 background.grid()
-empty_frame = board_frame = Frame(root,bg = 'red',width = 200,height= 600 )
-board_frame.grid(row = 0, column = 0)
+empty_frame = Frame(root,bg = 'red',width = 200,height= 600 )
+empty_frame.grid(row = 0, column = 0)
 board_frame = Frame(root,bd = 20,bg = 'yellow',width = 440,height= 800 )
 board_frame.grid(row = 0, column = 1)
 empty_frame2 = Frame(root,bd = 20,bg = 'orange',width = 100,height= 100 )
@@ -116,7 +116,7 @@ label.place(x = 10, y = 15)
 countdown(30)
 
 text_display = Entry(screen_frame,font = 'ariel 20',textvariable = screen_input,insertwidth = 40,
-                     bg = 'powder blue',justify = 'right')
+                     bg = 'powder blue',justify = 'center')
 text_display.grid()
 #################################################################### END ####################################################3
 root.mainloop()
