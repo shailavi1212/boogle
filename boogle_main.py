@@ -1,6 +1,7 @@
 import sys
 import boggle_board_randomizer
 import time
+from tkinter import *
 
 START_MSG = "Let's play Boogle!"
 SEC_MSG = "Great job! keep going :)"
@@ -8,7 +9,52 @@ LOS_MSG = "There is no word like this, try again"
 QUIT_MSG = "Thanks for playing! hope to see you soon"
 BOARD_SIZE = 4
 FILEPATH = 'boggle_dict.txt'
+class Loading_game():
+    def __init__(self,master):
+        self.photo = PhotoImage(file = 'opening_loading.gif')
+        self.label = Label(master, image = self.photo)
+        self.label.grid()
 
+
+class Scroll_bar():
+    def __init__(self,master):
+        table_frame = Frame(master, bd=100, bg='blue', width=100, height=600)
+        table_frame.grid(row=0, column=3)
+        self.table = Scrollbar(table_frame)
+        self.table.pack(side=RIGHT, fill=Y)
+        self.list_of_words = Listbox(table_frame, yscrollcommand = self.table.set,bg = 'grey',bd = 20,width = 20,height= 20,font = 'helvetica 15')
+        self.num_of_word = 0
+        for i in range(100):
+            self.list_of_words.insert(END, '' + str(i + 1))
+        self.list_of_words.pack(side=LEFT)
+        self.table.config(command=self.list_of_words.yview)
+
+
+    def add_word(self,word):
+        self.list_of_words.delete(self.num_of_word)
+        self.list_of_words.insert(self.num_of_word,'' + str(self.num_of_word + 1) + ' ' + word)
+        self.num_of_word = + 1
+
+class Screen():
+    def __init__(self, master,screen_input):
+
+        self.text_display = Entry(master, font='ariel 20', textvariable=screen_input, insertwidth=40,
+                                    bg='powder blue', justify='center')
+        self.text_display.grid()
+    def right_answer(self):
+        self.text_display.after(0,self.text_display.config(bg='green'))
+
+    def after(self,time):
+        self.text_display.after(time, self.text_display.config(bg='powder blue'))
+class Score():
+    def __init__(self,master,score):
+        self.score = score
+        score_frame = Label(master, textvariable = score, bg='white', font='ariel 25')
+        score_frame.place(x=40, y=50)
+    def get_score(self):
+        return self.score
+    def set_score(self,new_score):
+        self.score = new_score
 def main():
     """"""
     board = boggle_board_randomizer.randomize_board()
@@ -81,9 +127,13 @@ def convert_to_dict(board):
 
 def check_if_valid(coor_lst):
     """"""
-    if compare_last(coor_lst[-1],coor_lst[-2]):
+    if len(coor_lst) < 2:
+        return True
+    if compare_last(coor_lst[-1],coor_lst[-2]) == 1:
         if len(coor_lst) == len(set(coor_lst)):
             return True
+        else:
+            return False
     else:
         return False
 def compare_last(last_coor,before_last):
