@@ -22,7 +22,7 @@ class Scroll_bar():
         table_frame.grid(row=0, column=3)
         self.table = Scrollbar(table_frame)
         self.table.pack(side=RIGHT, fill=Y)
-        self.list_of_words = Listbox(table_frame, yscrollcommand = self.table.set,bg = 'grey',bd = 20,width = 20,height= 20,font = 'helvetica 15')
+        self.list_of_words = Listbox(table_frame, yscrollcommand = self.table.set,bg = 'white',bd = 20,width = 20,height= 20,font = 'helvetica 15')
         self.num_of_word = 0
         for i in range(100):
             self.list_of_words.insert(END, '' + str(i + 1))
@@ -37,15 +37,19 @@ class Scroll_bar():
 
 class Screen():
     def __init__(self, master,screen_input):
-
+        self.bg = 'powder blue'
         self.text_display = Entry(master, font='ariel 20', textvariable=screen_input, insertwidth=40,
-                                    bg='powder blue', justify='center')
+                                    bg= self.bg, justify='center')
         self.text_display.grid()
     def right_answer(self):
-        self.text_display.after(0,self.text_display.config(bg='green'))
+        self.text_display.config(bg = 'green')
 
-    def after(self,time):
-        self.text_display.after(time, self.text_display.config(bg='powder blue'))
+    def not_valid(self):
+        self.text_display.config(bg='red')
+
+    def new_word(self):
+        self.text_display.config(bg='powder blue')
+
 class Score():
     def __init__(self,master,score):
         self.score = score
