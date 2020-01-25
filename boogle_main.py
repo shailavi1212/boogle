@@ -2,6 +2,7 @@ import sys
 import boggle_board_randomizer
 import time
 from tkinter import *
+import winsound
 
 START_MSG = "Let's play Boogle!"
 SEC_MSG = "Great job! keep going :)"
@@ -18,11 +19,11 @@ class Loading_game():
 
 class Scroll_bar():
     def __init__(self,master):
-        table_frame = Frame(master, bd=100, bg='blue', width=100, height=600)
-        table_frame.grid(row=0, column=3)
+        table_frame = Frame(master, bd=30, bg='white', width=20, height=100)
+        table_frame.place(x=800, y=150)
         self.table = Scrollbar(table_frame)
         self.table.pack(side=RIGHT, fill=Y)
-        self.list_of_words = Listbox(table_frame, yscrollcommand = self.table.set,bg = 'white',bd = 20,width = 20,height= 20,font = 'helvetica 15')
+        self.list_of_words = Listbox(table_frame, yscrollcommand = self.table.set,bg = 'white',bd = 20,width = 10,height= 10,font = 'helvetica 15')
         self.num_of_word = 0
         for i in range(100):
             self.list_of_words.insert(END, '' + str(i + 1))
@@ -38,23 +39,25 @@ class Scroll_bar():
 class Screen():
     def __init__(self, master,screen_input):
         self.bg = 'powder blue'
-        self.text_display = Entry(master, font='ariel 20', textvariable=screen_input, insertwidth=40,
-                                    bg= self.bg, justify='center')
+        self.text_display = Label(master, font='ariel 20', textvariable=screen_input,
+                                    bg= 'white', justify='center')
         self.text_display.grid()
     def right_answer(self):
+        winsound.PlaySound('sweet-notification-alert_C#_major.wav',winsound.SND_ASYNC)
         self.text_display.config(bg = 'green')
 
     def not_valid(self):
+        winsound.PlaySound('wrong-answer_F#_major.wav', winsound.SND_ASYNC)
         self.text_display.config(bg='red')
 
     def new_word(self):
-        self.text_display.config(bg='powder blue')
+        self.text_display.config(bg='white')
 
 class Score():
     def __init__(self,master,score):
         self.score = score
-        score_frame = Label(master, textvariable = score, bg='white', font='ariel 25')
-        score_frame.place(x=40, y=50)
+        score_frame = Label(master, text = self.score, bg='white', font='ariel 25')
+        score_frame.pack()
     def get_score(self):
         return self.score
     def set_score(self,new_score):
