@@ -10,16 +10,10 @@ LOS_MSG = "There is no word like this, try again"
 QUIT_MSG = "Thanks for playing! hope to see you soon"
 BOARD_SIZE = 4
 FILEPATH = 'boggle_dict.txt'
-class Loading_game():
-    def __init__(self,master):
-        self.photo = PhotoImage(file = 'opening_loading.gif')
-        self.label = Label(master, image = self.photo)
-        self.label.grid()
 
-
-class Scroll_bar():
-    def __init__(self,master):
-        table_frame = Frame(master, bd=30, bg='white', width=20, height=100)
+class Scroll_bar:
+    def __init__(self):
+        table_frame = Frame( bd=30, bg='white', width=20, height=100)
         table_frame.place(x=800, y=150)
         self.table = Scrollbar(table_frame)
         self.table.pack(side=RIGHT, fill=Y)
@@ -34,7 +28,7 @@ class Scroll_bar():
     def add_word(self,word):
         self.list_of_words.delete(self.num_of_word)
         self.list_of_words.insert(self.num_of_word,'' + str(self.num_of_word + 1) + ' ' + word)
-        self.num_of_word = + 1
+        self.num_of_word = self.num_of_word + 1
 
 class Screen():
     def __init__(self, master,screen_input):
@@ -43,11 +37,11 @@ class Screen():
                                     bg= 'white', justify='center')
         self.text_display.grid()
     def right_answer(self):
-        winsound.PlaySound('sweet-notification-alert_C#_major.wav',winsound.SND_ASYNC)
+        #winsound.PlaySound('sweet-notification-alert_C#_major.wav',winsound.SND_ASYNC)
         self.text_display.config(bg = 'green')
 
     def not_valid(self):
-        winsound.PlaySound('wrong-answer_F#_major.wav', winsound.SND_ASYNC)
+        #winsound.PlaySound('wrong-answer_F#_major.wav', winsound.SND_ASYNC)
         self.text_display.config(bg='red')
 
     def new_word(self):
@@ -56,7 +50,7 @@ class Screen():
 class Score():
     def __init__(self,master,score):
         self.score = score
-        score_frame = Label(master, text = self.score, bg='white', font='ariel 25')
+        score_frame = Label(master, textvariable = self.score, bg='white', font='ariel 25')
         score_frame.pack()
     def get_score(self):
         return self.score
