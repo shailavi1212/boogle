@@ -3,7 +3,7 @@ import boogle_main
 import boggle_board_randomizer
 import time
 import winsound
-
+import tkinter.messagebox
 
 
 root = Tk()
@@ -15,7 +15,8 @@ board = boggle_board_randomizer.randomize_board()
 board_dict = boogle_main.convert_to_dict(board)
 screen_input = StringVar()
 word_list = boogle_main.words_list(boogle_main.FILEPATH)
-score_output = 0
+score_output = IntVar()
+score_output.set(0)
 used_word_list = []
 num_of_word = 0
 ##################################################### commands ###################################################################
@@ -24,7 +25,7 @@ num_of_word = 0
 
 background = Frame(root)
 background.grid()
-empty_frame = Frame(root,width = 200,height= 600)
+empty_frame = Frame(root,bg = 'white',width = 200,height= 600)
 empty_frame.grid(row = 0, column = 0)
 board_frame = Frame(root,bg = 'yellow',width = 440,height= 800 )
 board_frame.grid(row = 0, column = 1)
@@ -54,31 +55,31 @@ screen = boogle_main.Screen(screen_frame,screen_input)
 score = boogle_main.Score(score_frame,score_output)
 
 ###############################################################################################################################3
-def back_to_main():
-    new_root = Tk()
-    new_root.geometry('500x100+200+200')
-    messege_window = Frame(new_root)
-    messege_window.grid()
-    messege = Label(messege_window,text = 'do you want to continue',font = 'ariel 10')
-    messege.pack()
-    new_root.mainloop()
+def time_is_up():
 
+    answer = tkinter.messagebox.askquestion('','would you like to play again')
+    if answer == 'yes':
+        pass
+        #new game
+    else:
+        pass
+        #back to main menu
+def back_to_main:
+    #back to main menu
 def countdown(count):
-    # change ext in label
     label['text'] = count
 
     if count > 0:
-        # call countdown again after 1000ms (1s)
         timer_frame.after(1000, countdown, count-1)
     else:
-        back_to_main()
+        time_is_up()
 def end_of_word():
     word = boogle_main.convert_to_word(coor_list, board_dict)
     if boogle_main.check_word(word, used_word_list):
         if word in word_list:
             screen.right_answer()
-            score_temp = score.get_score() + boogle_main.calculate_score(word)
-            score.set_score(score_temp)
+            score_temp = score_output.get() + boogle_main.calculate_score(word)
+            score_output.set(score_temp)
             used_word_list.append(word)
             scroll.add_word(word)
             coor_list.clear()
@@ -90,7 +91,6 @@ def end_of_word():
 
     coor_list.clear()
 def not_valid():
-    # some sign
     screen.not_valid()
     coor_list.clear()
 
@@ -125,7 +125,7 @@ for col in range (4):
 ############################################################ display #######################################################
 label = Label(timer_frame,text = '30',bg = 'white', font = 'ariel 25')
 label.place(x = 10, y = 15)
-countdown(30)
+countdown(180)
 
 
 #################################################################### END ####################################################3
