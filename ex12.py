@@ -50,7 +50,7 @@ empty_space1.grid(row = 0,column = 0)
 end_game_menu = Frame(empty_frame,bd = 20,width = 100,height= 100)
 end_game_menu.place(x = 0, y = 450)
 ###################################################################### objects ###############################################
-scroll = boogle_main.Scroll_bar(root)
+scroll = boogle_main.Scroll_bar()
 screen = boogle_main.Screen(screen_frame,screen_input)
 score = boogle_main.Score(score_frame,score_output)
 
@@ -64,7 +64,8 @@ def time_is_up():
     else:
         pass
         #back to main menu
-def back_to_main:
+def back_to_main():
+    pass
     #back to main menu
 def countdown(count):
     label['text'] = count
@@ -130,4 +131,3 @@ countdown(180)
 
 #################################################################### END ####################################################3
 root.mainloop()
-
