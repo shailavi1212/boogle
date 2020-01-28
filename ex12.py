@@ -24,9 +24,12 @@ WELCOME_AND_INSTRUCTIONS_MSG = "Hello and Welcome to Boggle game!\n" \
                                "left or one of the four diagonals).\n" \
                                "\nSO! Let's play Boggle!"
 TIMES_UP_MSG_TITLE = "OH OH!"
-TIMES_UP_MSG = "would you like to play again?"
+TIMES_UP_MSG_1 = "Your time is up!"
+TIMES_UP_MSG_2 = "Would you like to play again?"
 QUIT_MSG_TITLE = "Quit"
 QUIT_MSG = "Are you sure you want to quit?"
+GOOD_BYE_MSG_TITLE = "Good Bye"
+GOOD_BYE_MSG = "Good Bye!"
 # Colors
 WELCOME_MSG_BACKGROUND = "gray31"
 BACKGROUND_COLOR = 'black'
@@ -148,7 +151,13 @@ class Main:
         """When user presses the Quit button, asks if he wants to Quit. if yes - quit, if no - continue"""
         user_answer = tkinter.messagebox.askquestion(QUIT_MSG_TITLE, QUIT_MSG)
         if user_answer == 'yes':
-            quit()
+            user_answer = tkinter.messagebox.showinfo(GOOD_BYE_MSG_TITLE, "You found "
+                                                      + number_of_words(self.used_word_list)
+                                                      + " words\n" + "Your score is: "
+                                                      + str(self.score_output.get()) + " points\n"
+                                                      + "\n" + GOOD_BYE_MSG)
+            if user_answer == 'ok':
+                quit()
         else:
             pass
 
@@ -207,11 +216,11 @@ class Main:
 
     def time_is_up(self):
         """When time is up, asks user if he wants to play again or to quit"""
-        user_answer = tkinter.messagebox.askquestion(TIMES_UP_MSG_TITLE, "You found "
-                                                     + number_of_words(self.used_word_list)
-                                                     + " words!\n" + "Your score is: "
-                                                     + str(self.score_output.get()) + "\n"
-                                                     + TIMES_UP_MSG)
+        user_answer = tkinter.messagebox.askquestion(TIMES_UP_MSG_TITLE, TIMES_UP_MSG_1 + "\n"
+                                                     + "\nYou found " + number_of_words(self.used_word_list)
+                                                     + " words\n" + "Your score is: "
+                                                     + str(self.score_output.get()) + " points\n\n"
+                                                     + TIMES_UP_MSG_2)
 
         if user_answer == 'yes':
             Main(root)
