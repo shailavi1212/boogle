@@ -3,25 +3,31 @@ import boggle_board_randomizer
 import tkinter.messagebox
 # import winsound # Available only for Windows users
 
-
 FILEPATH = 'boggle_dict.txt'
 BOARD_SIZE = 4
 WELCOME_AND_INSTRUCTIONS_MSG_TITLE = "Welcome"
-WELCOME_AND_INSTRUCTIONS_MSG = "Hello!...."
+WELCOME_AND_INSTRUCTIONS_MSG = "Hello and Welcome to Boggle game! a few words about this game: " \
+                               "The goal of the game is to find as many words as possible on the " \
+                               "board in 3 minutes. A valid word is a word that appears in the " \
+                               "dictionary and consists of a trip on the board that starts with " \
+                               "one of the letters and moves to neighboring letters. A neighboring " \
+                               "letter is considered to be a letter that is adjacent to the current " \
+                               "letter in one of the eight directions (up, down, right, " \
+                               "left or one of the four diagonals). SO! Let's play Boggle!"
 TIMES_UP_MSG_TITLE = "OH OH!"
 TIMES_UP_MSG = "Time's up! would you like to play again?"
 QUIT_MSG_TITLE = "Quit"
-QUIT_MSG = "You sure you wanna quit?"
+QUIT_MSG = "Are you sure you want to quit?"
 
 root = Tk()
 
 root.geometry('1350x700')
-root.configure(background="black")
+root.configure(background="gray31")
 
 
 class Splash(Toplevel):
     """
-
+    Welcome message
     """
 
     def __init__(self, parent):
@@ -43,7 +49,7 @@ class StartingScreen(Tk):
         splash.destroy()
 
 
-##################################################### commands ########################################################
+##################################################### Game ########################################################
 
 class Boogle:
     """
@@ -51,6 +57,11 @@ class Boogle:
     """
 
     def __init__(self, master):
+
+        photo = PhotoImage(file="boggle.png")
+        label = Label(master, image=photo)
+        label.image = photo
+        label.grid(row=0, column=0, columnspan=20, rowspan=20)
 
         self.background = Frame(master)
         self.background.grid()
@@ -86,11 +97,11 @@ class Boogle:
 
         ################################################ empty_side  ##########################################################################
 
-        self.empty_space1 = Frame(self.empty_frame, bd=20, bg='black', width=200, height=500)
+        self.empty_space1 = Frame(self.empty_frame, bd=20, bg='black', width=120, height=50)
         self.empty_space1.grid(row=0, column=0)
 
-        self.end_game_menu = Frame(self.empty_frame, bd=20, bg='black', width=100, height=100)
-        self.end_game_menu.place(x=0, y=450)
+        self.end_game_menu = Frame(self.empty_frame, bd=20, bg='black', width=50, height=100)
+        self.end_game_menu.place(x=0, y=0)
 
         ###################################################################### variavle################################################
 
@@ -121,7 +132,7 @@ class Boogle:
                 button.grid(row=col, column=row)
         ############################################################ Timer ##################################################
 
-        self.label = Label(self.timer_frame, bg='white', font='Courier 40')
+        self.label = Label(self.timer_frame, bg='mint cream', font='Courier 40')
         self.label.place(x=-10, y=15)
         self.countdown(180)
 
@@ -220,8 +231,8 @@ class Boogle:
 
 class ScrollBar:
     def __init__(self):
-        table_frame = Frame(bd=30, bg='white', width=20, height=100)
-        table_frame.place(x=800, y=150)
+        table_frame = Frame(bd=30, bg='black', width=20, height=100)
+        table_frame.place(x=800, y=130)
         self.table = Scrollbar(table_frame)
         self.table.pack(side=RIGHT, fill=Y)
         self.list_of_words = Listbox(table_frame, yscrollcommand=self.table.set, bg='white', bd=20, width=10, height=10,
@@ -311,7 +322,6 @@ def convert_to_word(user_input, dict_board):
     :return:
     """
     word = ''
-    print(user_input)
     for coor in user_input:
         word = word + dict_board[coor]
     # word = ''.join(str(i) for i in lst)
@@ -394,8 +404,6 @@ def number_of_words(used_word_list):
     :return: the number of the words he found
     """
     return len(used_word_list)
-
-#################################################################### END ####################################################3
 
 
 StartingScreen()
